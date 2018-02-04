@@ -148,6 +148,9 @@ class Stack:
         "Returns true if the stack is empty"
         return len(self.list) == 0
 
+    def size(self):
+        return len(self.list)
+
     def top(self):
         if len(self.list) < 1:
             return None
@@ -173,6 +176,15 @@ class Queue:
     def isEmpty(self):
         "Returns true if the queue is empty"
         return len(self.list) == 0
+
+    def size(self):
+        return len(self.list)
+
+    def top(self):
+        if len(self.list) < 1:
+            return None
+        else:
+            return self.list[0]
 
 class PriorityQueue:
     """

@@ -18,7 +18,6 @@ Pacman agents (in searchAgents.py).
 """
 import util
 from util import Stack, Queue, PriorityQueue
-
 class SearchProblem:
     """
     This class outlines the structure of a search problem, but doesn't implement
@@ -82,22 +81,46 @@ def depthFirstSearch(problem):
     To get started, you might want to try some of these simple commands to
     understand the search problem that is being passed in:
     """
-    print "Start:", problem.getStartState()
-    print "Is the start a goal?", problem.isGoalState(problem.getStartState())
-    print "Start's successors:", problem.getSuccessors(problem.getStartState())
-    open = Stack()
-    closed = []
-    while(open.top() is not None):
-        if problem.isGoalState(open.top()):
-            print (open)
-    # problem.
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    root = problem.getStartState()
+    
+    if problem.isGoalState(root):
+        return []
+    
+    frontier = Stack()
+    frontier.push((root, []))
+
+    explored = []
+
+    while not frontier.isEmpty():
+        if problem.isGoalState(frontier.top()[0]):
+            print ("Found goal state")
+        node = frontier.pop()
+        explored.append(node)
+        for child_state in problem.getSuccessors(node):
+            if child_state[0] not in explored:
+                frontier.push(child_state[0])
+    return []
 
 def breadthFirstSearch(problem):
-    """Search the shallowest nodes in the search tree first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    root = problem.getStartState()
+    
+    if problem.isGoalState(root):
+        return []
+    
+    frontier = Queue()
+    frontier.push(root)
+
+    explored = []
+
+    while not frontier.isEmpty():
+        if problem.isGoalState(frontier.top()):
+            print ("Found goal state")
+        node = frontier.pop()
+        explored.append(node)
+        for child_state in problem.getSuccessors(node):
+            if child_state[0] not in explored:
+                frontier.push(child_state[0])
+    return []
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
