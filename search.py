@@ -13,15 +13,15 @@
 
 
 """
-In ArtificialIntelligenceP1.py, you will implement generic ArtificialIntelligenceP1 algorithms which are called by
+In search.py, you will implement generic search algorithms which are called by
 Pacman agents (in searchAgents.py).
 """
-
 import util
+from util import Stack, Queue, PriorityQueue
 
 class SearchProblem:
     """
-    This class outlines the structure of a ArtificialIntelligenceP1 problem, but doesn't implement
+    This class outlines the structure of a search problem, but doesn't implement
     any of the methods (in object-oriented terminology: an abstract class).
 
     You do not need to change anything in this class, ever.
@@ -29,7 +29,7 @@ class SearchProblem:
 
     def getStartState(self):
         """
-        Returns the start state for the ArtificialIntelligenceP1 problem.
+        Returns the start state for the search problem.
         """
         util.raiseNotDefined()
 
@@ -74,23 +74,28 @@ def tinyMazeSearch(problem):
 
 def depthFirstSearch(problem):
     """
-    Search the deepest nodes in the ArtificialIntelligenceP1 tree first.
+    Search the deepest nodes in the search tree first.
 
-    Your ArtificialIntelligenceP1 algorithm needs to return a list of actions that reaches the
-    goal. Make sure to implement a graph ArtificialIntelligenceP1 algorithm.
+    Your search algorithm needs to return a list of actions that reaches the
+    goal. Make sure to implement a graph search algorithm.
 
     To get started, you might want to try some of these simple commands to
-    understand the ArtificialIntelligenceP1 problem that is being passed in:
+    understand the search problem that is being passed in:
     """
     print "Start:", problem.getStartState()
     print "Is the start a goal?", problem.isGoalState(problem.getStartState())
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
+    open = Stack()
+    closed = []
+    while(open.top() is not None):
+        if problem.isGoalState(open.top()):
+            print (open)
     # problem.
     "*** YOUR CODE HERE ***"
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem):
-    """Search the shallowest nodes in the ArtificialIntelligenceP1 tree first."""
+    """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
     util.raiseNotDefined()
 

@@ -304,6 +304,7 @@ class Actions:
             return Directions.SOUTH
         if action == Directions.SOUTH:
             return Directions.NORTH
+            return Directions.NORTH
         if action == Directions.EAST:
             return Directions.WEST
         if action == Directions.WEST:

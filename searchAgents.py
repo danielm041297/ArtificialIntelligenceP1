@@ -16,11 +16,11 @@
 This file contains all of the agents that can be selected to control Pacman.  To
 select an agent, use the '-p' option when running pacman.py.  Arguments can be
 passed to your agent using '-a'.  For example, to load a SearchAgent that uses
-depth first ArtificialIntelligenceP1 (dfs), run the following command:
+depth first search (dfs), run the following command:
 
 > python pacman.py -p SearchAgent -a fn=depthFirstSearch
 
-Commands to invoke other ArtificialIntelligenceP1 strategies can be found in the project
+Commands to invoke other search strategies can be found in the project
 description.
 
 Please only change the parts of the file you are asked to.  Look for the lines
@@ -58,8 +58,8 @@ class GoWestAgent(Agent):
 
 class SearchAgent(Agent):
     """
-    This very general ArtificialIntelligenceP1 agent finds a path using a supplied ArtificialIntelligenceP1
-    algorithm for a supplied ArtificialIntelligenceP1 problem, then returns actions to follow that
+    This very general search agent finds a path using a supplied search
+    algorithm for a supplied search problem, then returns actions to follow that
     path.
 
     As a default, this agent runs DFS on a PositionSearchProblem to find
@@ -78,7 +78,7 @@ class SearchAgent(Agent):
 
         # Get the search function from the name and heuristic
         if fn not in dir(search):
-            raise AttributeError, fn + ' is not a ArtificialIntelligenceP1 function in ArtificialIntelligenceP1.py.'
+            raise AttributeError, fn + ' is not a search function in search.py.'
         func = getattr(search, fn)
         if 'heuristic' not in func.func_code.co_varnames:
             print('[SearchAgent] using function ' + fn)
@@ -89,14 +89,14 @@ class SearchAgent(Agent):
             elif heuristic in dir(search):
                 heur = getattr(search, heuristic)
             else:
-                raise AttributeError, heuristic + ' is not a function in searchAgents.py or ArtificialIntelligenceP1.py.'
+                raise AttributeError, heuristic + ' is not a function in searchAgents.py or search.py.'
             print('[SearchAgent] using function %s and heuristic %s' % (fn, heuristic))
             # Note: this bit of Python trickery combines the search algorithm and the heuristic
             self.searchFunction = lambda x: func(x, heuristic=heur)
 
         # Get the search problem type from the name
         if prob not in globals().keys() or not prob.endswith('Problem'):
-            raise AttributeError, prob + ' is not a ArtificialIntelligenceP1 problem type in SearchAgents.py.'
+            raise AttributeError, prob + ' is not a search problem type in SearchAgents.py.'
         self.searchType = globals()[prob]
         print('[SearchAgent] using problem type ' + prob)
 
@@ -109,7 +109,7 @@ class SearchAgent(Agent):
 
         state: a GameState object (pacman.py)
         """
-        if self.searchFunction == None: raise Exception, "No ArtificialIntelligenceP1 function provided for SearchAgent"
+        if self.searchFunction == None: raise Exception, "No search function provided for SearchAgent"
         starttime = time.time()
         problem = self.searchType(state) # Makes a new search problem
         self.actions  = self.searchFunction(problem) # Find a path
@@ -135,13 +135,13 @@ class SearchAgent(Agent):
 
 class PositionSearchProblem(search.SearchProblem):
     """
-    A ArtificialIntelligenceP1 problem defines the state space, start state, goal test, successor
-    function and cost function.  This ArtificialIntelligenceP1 problem can be used to find paths
+    A search problem defines the state space, start state, goal test, successor
+    function and cost function.  This search problem can be used to find paths
     to a particular point on the pacman board.
 
     The state space consists of (x,y) positions in a pacman game.
 
-    Note: this ArtificialIntelligenceP1 problem is fully specified; you should NOT change it.
+    Note: this search problem is fully specified; you should NOT change it.
     """
 
     def __init__(self, gameState, costFn = lambda x: 1, goal=(1,1), start=None, warn=True, visualize=True):
@@ -149,7 +149,7 @@ class PositionSearchProblem(search.SearchProblem):
         Stores the start and goal.
 
         gameState: A GameState object (pacman.py)
-        costFn: A function from a ArtificialIntelligenceP1 state (tuple) to a non-negative number
+        costFn: A function from a search state (tuple) to a non-negative number
         goal: A position in the gameState
         """
         self.walls = gameState.getWalls()
@@ -159,7 +159,7 @@ class PositionSearchProblem(search.SearchProblem):
         self.costFn = costFn
         self.visualize = visualize
         if warn and (gameState.getNumFood() != 1 or not gameState.hasFood(*goal)):
-            print 'Warning: this does not look like a regular ArtificialIntelligenceP1 maze'
+            print 'Warning: this does not look like a regular search maze'
 
         # For display purposes
         self._visited, self._visitedlist, self._expanded = {}, [], 0 # DO NOT CHANGE
@@ -184,7 +184,7 @@ class PositionSearchProblem(search.SearchProblem):
         """
         Returns successor states, the actions they require, and a cost of 1.
 
-         As noted in ArtificialIntelligenceP1.py:
+         As noted in search.py:
              For a given state, this should return a list of triples,
          (successor, action, stepCost), where 'successor' is a
          successor to the current state, 'action' is the action
@@ -228,7 +228,7 @@ class PositionSearchProblem(search.SearchProblem):
 
 class StayEastSearchAgent(SearchAgent):
     """
-    An agent for position ArtificialIntelligenceP1 with a cost function that penalizes being in
+    An agent for position search with a cost function that penalizes being in
     positions on the West side of the board.
 
     The cost function for stepping into a position (x,y) is 1/2^x.
@@ -240,7 +240,7 @@ class StayEastSearchAgent(SearchAgent):
 
 class StayWestSearchAgent(SearchAgent):
     """
-    An agent for position ArtificialIntelligenceP1 with a cost function that penalizes being in
+    An agent for position search with a cost function that penalizes being in
     positions on the East side of the board.
 
     The cost function for stepping into a position (x,y) is 2^x.
@@ -268,7 +268,7 @@ def euclideanHeuristic(position, problem, info={}):
 
 class CornersProblem(search.SearchProblem):
     """
-    This ArtificialIntelligenceP1 problem finds paths through all four corners of a layout.
+    This search problem finds paths through all four corners of a layout.
 
     You must select a suitable state space and successor function
     """
@@ -299,7 +299,7 @@ class CornersProblem(search.SearchProblem):
 
     def isGoalState(self, state):
         """
-        Returns whether this ArtificialIntelligenceP1 state is a goal state of the problem.
+        Returns whether this search state is a goal state of the problem.
         """
         "*** YOUR CODE HERE ***"
         util.raiseNotDefined()
@@ -308,7 +308,7 @@ class CornersProblem(search.SearchProblem):
         """
         Returns successor states, the actions they require, and a cost of 1.
 
-         As noted in ArtificialIntelligenceP1.py:
+         As noted in search.py:
             For a given state, this should return a list of triples, (successor,
             action, stepCost), where 'successor' is a successor to the current
             state, 'action' is the action required to get there, and 'stepCost'
@@ -347,8 +347,8 @@ def cornersHeuristic(state, problem):
     """
     A heuristic for the CornersProblem that you defined.
 
-      state:   The current ArtificialIntelligenceP1 state
-               (a data structure you chose in your ArtificialIntelligenceP1 problem)
+      state:   The current search state
+               (a data structure you chose in your search problem)
 
       problem: The CornersProblem instance for this layout.
 
@@ -370,10 +370,10 @@ class AStarCornersAgent(SearchAgent):
 
 class FoodSearchProblem:
     """
-    A ArtificialIntelligenceP1 problem associated with finding the a path that collects all of the
+    A search problem associated with finding the a path that collects all of the
     food (dots) in a Pacman game.
 
-    A ArtificialIntelligenceP1 state in this problem is a tuple ( pacmanPosition, foodGrid ) where
+    A search state in this problem is a tuple ( pacmanPosition, foodGrid ) where
       pacmanPosition: a tuple (x,y) of integers specifying Pacman's position
       foodGrid:       a Grid (see game.py) of either True or False, specifying remaining food
     """
@@ -432,7 +432,7 @@ def foodHeuristic(state, problem):
     up with an admissible heuristic; almost all admissible heuristics will be
     consistent as well.
 
-    If using A* ever finds a solution that is worse uniform cost ArtificialIntelligenceP1 finds,
+    If using A* ever finds a solution that is worse uniform cost search finds,
     your heuristic is *not* consistent, and probably not admissible!  On the
     other hand, inadmissible or inconsistent heuristics may find optimal
     solutions, so be careful.
@@ -489,16 +489,16 @@ class ClosestDotSearchAgent(SearchAgent):
 
 class AnyFoodSearchProblem(PositionSearchProblem):
     """
-    A ArtificialIntelligenceP1 problem for finding a path to any food.
+    A search problem for finding a path to any food.
 
-    This ArtificialIntelligenceP1 problem is just like the PositionSearchProblem, but has a
+    This search problem is just like the PositionSearchProblem, but has a
     different goal test, which you need to fill in below.  The state space and
     successor function do not need to be changed.
 
     The class definition above, AnyFoodSearchProblem(PositionSearchProblem),
     inherits the methods of the PositionSearchProblem.
 
-    You can use this ArtificialIntelligenceP1 problem to help you fill in the findPathToClosestDot
+    You can use this search problem to help you fill in the findPathToClosestDot
     method.
     """
 
@@ -525,7 +525,7 @@ class AnyFoodSearchProblem(PositionSearchProblem):
 
 def mazeDistance(point1, point2, gameState):
     """
-    Returns the maze distance between any two points, using the ArtificialIntelligenceP1 functions
+    Returns the maze distance between any two points, using the search functions
     you have already built. The gameState can be any game state -- Pacman's
     position in that state is ignored.
 
