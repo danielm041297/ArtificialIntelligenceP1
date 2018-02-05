@@ -114,7 +114,7 @@ def breadthFirstSearch(problem):
     frontier.push(rootNode)
 
     explored = []
-
+    print("got here")
     while not frontier.isEmpty():
         if problem.isGoalState(frontier.top()[0]):
             print ("Found goal state")

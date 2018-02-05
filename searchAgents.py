@@ -288,6 +288,7 @@ class CornersProblem(search.SearchProblem):
         # Please add any code here which you would like to use
         # in initializing the problem
         "*** YOUR CODE HERE ***"
+        self.startState = [self.startingPosition,[0,0,0,0]]
 
     def getStartState(self):
         """
@@ -295,14 +296,15 @@ class CornersProblem(search.SearchProblem):
         space)
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return self.startState
 
     def isGoalState(self, state):
         """
         Returns whether this search state is a goal state of the problem.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        goals = state[1]
+        return goals[0] and goals[1] and goals[2] and goals[3] 
 
     def getSuccessors(self, state):
         """
@@ -323,6 +325,23 @@ class CornersProblem(search.SearchProblem):
             #   dx, dy = Actions.directionToVector(action)
             #   nextx, nexty = int(x + dx), int(y + dy)
             #   hitsWall = self.walls[nextx][nexty]
+            x,y = state[0]
+            dx, dy = Actions.directionToVector(action)
+            nextx, nexty = int(x + dx), int(y + dy)
+            if not self.walls[nextx][nexty]:
+                nextPosition = (nextx, nexty)
+                cost = 1
+                corns = state[1][:]
+                if(nextPosition==self.corners[0]):
+                    corns[0]=1
+                if(nextPosition==self.corners[1]):
+                    corns[1]=1
+                if(nextPosition==self.corners[2]):
+                    corns[2]=1
+                if(nextPosition==self.corners[3]):
+                    corns[3]=1
+                nextState=[nextPosition,corns[:]]
+                successors.append( ( nextState, action, cost) )
 
             "*** YOUR CODE HERE ***"
 
@@ -358,7 +377,8 @@ def cornersHeuristic(state, problem):
     """
     corners = problem.corners # These are the corner coordinates
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
-
+#     pos = state[0]
+#     dist = manhattanHeuristic(pos, corners[0]) + manhattanHeuristic(pos, corners[1])  + manhattanHeuristic(pos, corners[2]) + manhattanHeuristic(pos, corners[3]) 
     "*** YOUR CODE HERE ***"
     return 0 # Default to trivial solution
 
