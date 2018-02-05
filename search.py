@@ -131,9 +131,30 @@ def breadthFirstSearch(problem):
     return []
 
 def uniformCostSearch(problem):
-    """Search the node of least total cost first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    root = problem.getStartState()
+    rootNode = [root,[], 0]
+    if problem.isGoalState(root):
+        return []
+    
+    frontier = PriorityQueue()
+    frontier.push(rootNode, rootNode[2])
+
+    explored = []
+
+    while not frontier.isEmpty():
+        node = frontier.pop()
+        if problem.isGoalState(node[0]):
+            print ("Found goal state")
+            return node[1]
+        if node[0] not in explored:
+            explored.append(node[0])
+            for child_state in problem.getSuccessors(node[0]):
+                if child_state[0] not in explored: #to make more efficient make sure not in frontier too
+                    child_path = node[1][:]
+                    child_path.append(child_state[1])
+                    gcost = node[2] + child_state[2]
+                    frontier.push([child_state[0],child_path, gcost], gcost)
+    return []
 
 def nullHeuristic(state, problem=None):
     """
@@ -143,9 +164,32 @@ def nullHeuristic(state, problem=None):
     return 0
 
 def aStarSearch(problem, heuristic=nullHeuristic):
-    """Search the node that has the lowest combined cost and heuristic first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    root = problem.getStartState()
+    rootNode = [root,[], 0]
+    if problem.isGoalState(root):
+        return []
+    
+    frontier = PriorityQueue()
+    frontier.push(rootNode, rootNode[2])
+
+    explored = []
+
+    while not frontier.isEmpty():
+        node = frontier.pop()
+        if problem.isGoalState(node[0]):
+            print ("Found goal state")
+            return node[1]
+        if node[0] not in explored:
+            explored.append(node[0])
+            for child_state in problem.getSuccessors(node[0]):
+                if child_state[0] not in explored: #to make more efficient make sure not in frontier too
+                    child_path = node[1][:]
+                    child_path.append(child_state[1])
+#                     gcost = node[2] + child_state[2]
+#                     hcost = heuristic(node[0], problem)
+                    gcost = node[2] + child_state[2]
+                    fcost = node[2]+heuristic(child_state[0],problem)
+                    frontier.push([child_state[0],child_path, gcost], fcost)
 
 
 # Abbreviations

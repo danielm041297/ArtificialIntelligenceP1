@@ -223,6 +223,7 @@ class PriorityQueue:
                 break
         else:
             self.push(item, priority)
+            
 
 class PriorityQueueWithFunction(PriorityQueue):
     """
