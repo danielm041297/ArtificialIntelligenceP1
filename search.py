@@ -170,7 +170,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
         return []
     
     frontier = PriorityQueue()
-    frontier.push(rootNode, rootNode[2])
+    frontier.push(rootNode, rootNode[2] + heuristic(root, problem))
 
     explored = []
 
@@ -188,7 +188,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
 #                     gcost = node[2] + child_state[2]
 #                     hcost = heuristic(node[0], problem)
                     gcost = node[2] + child_state[2]
-                    fcost = node[2]+heuristic(child_state[0],problem)
+                    fcost = gcost+heuristic(child_state[0],problem)
                     frontier.push([child_state[0],child_path, gcost], fcost)
 
 

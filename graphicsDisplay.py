@@ -563,7 +563,7 @@ class PacmanGraphics:
 
     def drawExpandedCells(self, cells):
         """
-        Draws an overlay of expanded grid positions for ArtificialIntelligenceP1 agents
+        Draws an overlay of expanded grid positions for search agents
         """
         n = float(len(cells))
         baseColor = [1.0, 0.0, 0.0]

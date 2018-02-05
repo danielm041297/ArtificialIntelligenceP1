@@ -193,7 +193,7 @@ class GraphSearchTest(testClasses.TestCase):
     # If a good solution is returned, printn the solution and return true; otherwise,
     # print both the correct and student's solution and return false.
     def execute(self, grades, moduleDict, solutionDict):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         gold_solution = [str.split(solutionDict['solution']), str.split(solutionDict['rev_solution'])]
         gold_expanded_states = [str.split(solutionDict['expanded_states']), str.split(solutionDict['rev_expanded_states'])]
@@ -224,7 +224,7 @@ class GraphSearchTest(testClasses.TestCase):
             return False
 
     def writeSolution(self, moduleDict, filePath):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         # open file and write comments
         handle = open(filePath, 'w')
@@ -297,7 +297,7 @@ class PacmanSearchTest(testClasses.TestCase):
         return solution, expanded, None
 
     def execute(self, grades, moduleDict, solutionDict):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         gold_solution = [str.split(solutionDict['solution']), str.split(solutionDict['rev_solution'])]
         gold_expanded = max(int(solutionDict['expanded_nodes']), int(solutionDict['rev_expanded_nodes']))
@@ -338,7 +338,7 @@ class PacmanSearchTest(testClasses.TestCase):
 
 
     def writeSolution(self, moduleDict, filePath):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         # open file and write comments
         handle = open(filePath, 'w')
@@ -401,7 +401,7 @@ class CornerProblemTest(testClasses.TestCase):
         return path, missedCorners
 
     def execute(self, grades, moduleDict, solutionDict):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         gold_length = int(solutionDict['solution_length'])
         solution, missedCorners = self.solution(search, searchAgents)
@@ -430,7 +430,7 @@ class CornerProblemTest(testClasses.TestCase):
         return True
 
     def writeSolution(self, moduleDict, filePath):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         # open file and write comments
         handle = open(filePath, 'w')
@@ -508,7 +508,7 @@ class HeuristicTest(testClasses.TestCase):
         return True, ''
 
     def execute(self, grades, moduleDict, solutionDict):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         solutionCost = int(solutionDict['solution_cost'])
         problem, state, heuristic = self.setupProblem(searchAgents)
@@ -524,7 +524,7 @@ class HeuristicTest(testClasses.TestCase):
             return True
 
     def writeSolution(self, moduleDict, filePath):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         # open file and write comments
         handle = open(filePath, 'w')
@@ -570,7 +570,7 @@ class HeuristicGrade(testClasses.TestCase):
 
 
     def execute(self, grades, moduleDict, solutionDict):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         problem, _, heuristic = self.setupProblem(searchAgents)
 
@@ -639,7 +639,7 @@ class ClosestDotTest(testClasses.TestCase):
         return path
 
     def execute(self, grades, moduleDict, solutionDict):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         gold_length = int(solutionDict['solution_length'])
         solution = self.solution(searchAgents)
@@ -663,7 +663,7 @@ class ClosestDotTest(testClasses.TestCase):
         return True
 
     def writeSolution(self, moduleDict, filePath):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         # open file and write comments
         handle = open(filePath, 'w')
@@ -689,7 +689,7 @@ class CornerHeuristicSanity(testClasses.TestCase):
         self.layout_text = testDict['layout']
 
     def execute(self, grades, moduleDict, solutionDict):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         game_state = pacman.GameState()
         lay = layout.Layout([l.strip() for l in self.layout_text.split('\n')])
@@ -738,7 +738,7 @@ class CornerHeuristicSanity(testClasses.TestCase):
         return True
 
     def writeSolution(self, moduleDict, filePath):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         # write comment
         handle = open(filePath, 'w')
@@ -766,7 +766,7 @@ class CornerHeuristicPacman(testClasses.TestCase):
         self.layout_text = testDict['layout']
 
     def execute(self, grades, moduleDict, solutionDict):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         total = 0
         true_cost = float(solutionDict['cost'])
@@ -799,7 +799,7 @@ class CornerHeuristicPacman(testClasses.TestCase):
         return True
 
     def writeSolution(self, moduleDict, filePath):
-        search = moduleDict['ArtificialIntelligenceP1']
+        search = moduleDict['search']
         searchAgents = moduleDict['searchAgents']
         # write comment
         handle = open(filePath, 'w')

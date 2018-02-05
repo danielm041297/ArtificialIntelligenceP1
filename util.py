@@ -249,7 +249,7 @@ def manhattanDistance( xy1, xy2 ):
 """
   Data structures and functions useful for various course projects
 
-  The ArtificialIntelligenceP1 project should not need anything below this line.
+  The search project should not need anything below this line.
 """
 
 class Counter(dict):

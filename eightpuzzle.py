@@ -23,7 +23,7 @@ class EightPuzzleState:
     page 64.
 
     This class defines the mechanics of the puzzle itself.  The
-    task of recasting this puzzle as a ArtificialIntelligenceP1 problem is left to
+    task of recasting this puzzle as a search problem is left to
     the EightPuzzleSearchProblem class.
     """
 
@@ -192,7 +192,7 @@ class EightPuzzleSearchProblem(search.SearchProblem):
       Each state is represented by an instance of an eightPuzzle.
     """
     def __init__(self,puzzle):
-        "Creates a new EightPuzzleSearchProblem which stores ArtificialIntelligenceP1 information."
+        "Creates a new EightPuzzleSearchProblem which stores search information."
         self.puzzle = puzzle
 
     def getStartState(self):
