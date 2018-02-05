@@ -82,44 +82,52 @@ def depthFirstSearch(problem):
     understand the search problem that is being passed in:
     """
     root = problem.getStartState()
-    
+    rootNode = [root,[]]
     if problem.isGoalState(root):
         return []
     
     frontier = Stack()
-    frontier.push((root, []))
+    frontier.push(rootNode)
+    explored = []
+    while not frontier.isEmpty():
+        if problem.isGoalState(frontier.top()[0]):
+            print ("Found goal state")
+            goal = frontier.pop()
+            return goal[1]
+        node = frontier.pop()
+        if node[0] not in explored:
+            explored.append(node[0])
+            for child_state in problem.getSuccessors(node[0]):
+                if child_state[0] not in explored:
+                    child_path = node[1][:]
+                    child_path.append(child_state[1])
+                    frontier.push([child_state[0],child_path])
+    return []
+
+def breadthFirstSearch(problem):
+    root = problem.getStartState()
+    rootNode = [root,[]]
+    if problem.isGoalState(root):
+        return []
+    
+    frontier = Queue()
+    frontier.push(rootNode)
 
     explored = []
 
     while not frontier.isEmpty():
         if problem.isGoalState(frontier.top()[0]):
             print ("Found goal state")
+            goal = frontier.pop()
+            return goal[1]
         node = frontier.pop()
-        explored.append(node)
-        for child_state in problem.getSuccessors(node):
-            if child_state[0] not in explored:
-                frontier.push(child_state[0])
-    return []
-
-def breadthFirstSearch(problem):
-    root = problem.getStartState()
-    
-    if problem.isGoalState(root):
-        return []
-    
-    frontier = Queue()
-    frontier.push(root)
-
-    explored = []
-
-    while not frontier.isEmpty():
-        if problem.isGoalState(frontier.top()):
-            print ("Found goal state")
-        node = frontier.pop()
-        explored.append(node)
-        for child_state in problem.getSuccessors(node):
-            if child_state[0] not in explored:
-                frontier.push(child_state[0])
+        if node[0] not in explored:
+            explored.append(node[0])
+            for child_state in problem.getSuccessors(node[0]):
+                if child_state[0] not in explored: #to make more efficient make sure not in frontier too
+                    child_path = node[1][:]
+                    child_path.append(child_state[1])
+                    frontier.push([child_state[0],child_path])
     return []
 
 def uniformCostSearch(problem):

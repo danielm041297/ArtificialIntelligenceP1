@@ -184,7 +184,7 @@ class Queue:
         if len(self.list) < 1:
             return None
         else:
-            return self.list[0]
+            return self.list[len(self.list) - 1]
 
 class PriorityQueue:
     """
